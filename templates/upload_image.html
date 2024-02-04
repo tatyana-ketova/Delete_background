@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 90vh;
+        }
+        .container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 400px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            margin: 0;
+        }
+        input[type="submit"], a.download-link {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        input[type="submit"]:hover, a.download-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3>Description:</h3>
+The program removes the white background from an image.
+    The "threshold" is a parameter that determines the sensitivity of the background removal process.
+    It specifies the level of similarity between the background color and the color to be removed.
+    A threshold value of 1 removes only pure white color, while higher values remove a wider range of white shades. Adjusting the threshold allows users to customize
+    the extent of background removal according to their preferences.
+</div>
+    <div class="container">
+        <h3>Instruction:</h3>
+    1. Click on the "Upload" button. Please ensure that the image you upload is in a common format such as JPEG or PNG
+    <br>
+    <br>
+2. Choose the image file you want to process from your computer, then click "Open" or "Upload".
+    <br>
+    <br>
+3. Adjusting the Threshold (Optional): If you want to adjust the threshold for background removal, enter a value in the provided field.
+    <br>
+    <br>
+4. Click on the "Download" button to save the processed image to your computer.
+</div>
+    <div class="container">
+    <h3>Delete background from image:</h3>
+
+
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            Proceed image: <input type="submit" value="Download">
+        </form>
+        {% if form.instance.image %}
+            <a href="{% url 'remove_background' form.instance.pk %}" class="download-link">Download Image without Background</a>
+        {% endif %}
+    </div>
+</body>
+</html>
